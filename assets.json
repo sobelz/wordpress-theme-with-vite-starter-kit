@@ -1,0 +1,11 @@
+{
+  "ts": {
+    "main": "/src/ts/main.ts",
+    "home": "/src/ts/home/index.ts",
+    "aboutus": "/src/ts/aboutus/index.ts"
+  },
+  "css": {
+    "main": "main.css",
+    "aboutus": "aboutus.css"
+  }
+}
