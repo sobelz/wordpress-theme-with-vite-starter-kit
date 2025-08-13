@@ -7,9 +7,6 @@ if (!$port || empty($port)) {
 define("DEV_ADDRESS", "http://localhost:" . $port);
 
 
-
-define("DEV_ADDRESS","http://localhost:".$port);
-
 function get_assets_files_array (){
 	$assets_json_data = file_get_contents(get_template_directory_uri().'/assets.json',true);
 	$assets_array = json_decode($assets_json_data, true);
@@ -26,33 +23,44 @@ function assets_import_in_page_keys (){
 
 function load_assets_handler()
 {
-  wp_dequeue_style('classic-theme-styles');
+ 
+	remove_default_assets();
+	set_wpml_current_lang_to_js();
+  if (is_development_mode()) {
+	
+	development_assets();
+  } else {
+    normal_assets();
+  }
+}
+
+function remove_default_assets (){
+	 wp_dequeue_style('classic-theme-styles');
   wp_dequeue_style('wp-block-library');
   wp_dequeue_style('wp-block-library-theme');
   wp_dequeue_style('global-styles');
   wp_deregister_script('wp-embed');
 
+}
 
-  if (defined('ICL_LANGUAGE_CODE')) {
+function set_wpml_current_lang_to_js (){
+	if (defined('ICL_LANGUAGE_CODE')) {
     wp_localize_script('config', 'wpmlData', [
       'currentLanguage' => ICL_LANGUAGE_CODE,
     ]);
   }
+}
 
-  if (is_development_mode()) {
-	
+function development_assets(){
 	$assets_ts = get_assets_files_array()["ts"];
 	foreach ($assets_ts as $key => $value) {
 		if(in_array($key,assets_import_in_page_keys())){	
 			wp_enqueue_script_module('sobelz-vite-'.$key, DEV_ADDRESS.$value, [], null, true);
 		}
 	}
-  } else {
-    normal_assets();
-  }
 }
 
-function normal_asse()
+function normal_assets()
 {
 	$assets_ts = get_assets_files_array()["ts"];
 	$assets_css = get_assets_files_array()["css"];

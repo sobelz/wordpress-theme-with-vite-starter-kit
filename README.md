@@ -5,13 +5,42 @@
 ## Usage
 
 1. Download Wordpress theme from [Underscores](https://underscores.me/) template theme builder
-2. Copy evry files and directory here _(accept to replace readme)_
-3. Merge **additional** files and directory with your theme ([Read more](#merge-files))
-4. Rename **example.env** to **.env** and set your ports for development mode
-5. Run this code for install dependency
+2. Remove **LICENSE** file
+3. Copy evry files and directory here _(accept to replace readme)_
+4. Merge **additional** files and directory with your theme ([Read more](#merge-files))
+5. Rename **example.env** to **.env** and set your ports for development mode
+6. Run this code for install dependency
 
    ```shell
    npm install
+   ```
+
+7. Build your css and js with this command
+
+   ```shell
+   npm run build
+   ```
+
+## Development
+
+For using **Development** mode and enable auto refresh when change anything :
+
+1. Set **Global Variable** in root of wordpress project in **wp-config.php**
+
+   ```PHP
+     define( 'APP_MODE', "development" );
+   ```
+
+2. If your project runnig on server you need to forward the port defined in .env to your server (with [vscode](https://code.visualstudio.com/docs/debugtest/port-forwarding))
+
+   ```shel
+   ssh -L local_port:remote_host:remote_port user@ssh_server
+   ```
+
+3. Run development
+
+   ```shell
+   npm run dev
    ```
 
 ## Assets files
