@@ -34,7 +34,13 @@
 
 @utility clippath-* {
   clip-path: --value([ *]);
-  -webkit-clip-path: --value([ *]);
+}
+
+@utility clip-path-poligon-* {
+  clip-path: polygon(--value([ *]));
+}
+@utility flex-size-* {
+  flex: 0 0 calc(--value(integer) * 1%);
 }
 
 @theme {
