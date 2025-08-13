@@ -27,6 +27,7 @@ const makePackage = async () => {
             ".git",
             "tsconfig.json",
             "vite.config.ts",
+            "package.js"
         ],
     }))
         await cp(join(process.cwd(), entry), join(outputPath, entry), {
@@ -35,7 +36,7 @@ const makePackage = async () => {
 
     const zip = new AdmZip();
 
-    zip.addLocalFolder(outputPath);
+    zip.addLocalFolder(process.cwd(), "output");
     zip.writeZip(outputPathZip);
 };
 
