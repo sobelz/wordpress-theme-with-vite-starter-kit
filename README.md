@@ -1,21 +1,21 @@
-# Wordpress starter kit
+# WordPress Theme Starter Kit
 
-## For integrate with [**Vite**](https://vite.dev/) & [**Tailwindcss**](https://tailwindcss.com/)
+## Integrates with [Vite](https://vite.dev/) & [Tailwind CSS](https://tailwindcss.com/)
 
 ## Usage
 
-1. Download Wordpress theme from [Underscores](https://underscores.me/) template theme builder
-2. Remove **LICENSE** file
-3. Copy evry files and directory here _(accept to replace readme)_
-4. Merge **additional** files and directory with your theme ([Read more](#merge-files))
-5. Rename **example.env** to **.env** and set your ports for development mode
-6. Run this code for install dependency
+1. Download a WordPress theme from the [Underscores](https://underscores.me/) template builder.
+2. Remove the **LICENSE** file.
+3. Copy all files and directories from this starter kit into your theme (accept replacing the README).
+4. Merge the **additional** files and directories with your theme ([see below](#merge-files)).
+5. Rename **example.env** to **.env** and set your development ports.
+6. Install dependencies:
 
    ```shell
    npm install
    ```
 
-7. Build your css and js with this command
+7. Build your CSS and JS:
 
    ```shell
    npm run build
@@ -23,33 +23,32 @@
 
 ## Development
 
-For using **Development** mode and enable auto refresh when change anything :
+To use development mode and enable auto-refresh on changes:
 
-1. Set **Global Variable** in root of wordpress project in **wp-config.php**
+1. Set a global variable in the root of your WordPress project in **wp-config.php**:
 
-   ```PHP
-     define( 'APP_MODE', "development" );
+   ```php
+   define('APP_MODE', 'development');
    ```
 
-2. If your project runnig on server you need to forward the port defined in .env to your server (with [vscode](https://code.visualstudio.com/docs/debugtest/port-forwarding))
+2. If your project runs on a server, forward the port defined in `.env` to your server (see [VS Code port forwarding](https://code.visualstudio.com/docs/debugtest/port-forwarding)):
 
-   ```shel
+   ```shell
    ssh -L local_port:remote_host:remote_port user@ssh_server
    ```
 
-3. Run development
+3. Start development mode:
 
    ```shell
    npm run dev
    ```
 
-## Assets files
+## Asset Files
 
 #### assets.json
 
-In this file you manage css and js files for daynamic importing in each page in wordpress <br>
-For example you have **aboutus** page and in this page you have **aboutus.ts** for manage some section animations <br>
-If your page route is _about-us_ you can add like this for load **aboutus.ts** just in _about-us_ route
+Manage CSS and JS files for dynamic importing on each WordPress page.  
+For example, if you have an **aboutus** page with `aboutus.ts` for animations, and your page route is _about-us_, add the following to load `aboutus.ts` only on that route:
 
 ```json
 {
@@ -65,18 +64,35 @@ If your page route is _about-us_ you can add like this for load **aboutus.ts** j
 }
 ```
 
-In this sample **main**._(css|ts)_ loaded on evry routes and page , you can use this for menu and ...
-and **home** just loaded on home page by this route
+- `main.(css|ts)` loads on every route and page (useful for menus, etc.).
+- `home` loads only on the home page (`/`).
+- `about-us` loads only on the `/about-us` route.
 
-> /
+### Merge Files
 
-And **about-us** loaded on this route
+- Copy files from [additional-inc](./additional-inc/) into your `inc` directory, then remove `additional-inc`.
+- Replace [additional-.gitignore](additional-.gitignore) with `.gitignore`.
+- Copy the contents of [additional-functions.php](additional-functions.php) into your `functions.php`.
+- Replace [additional-package.json](additional-package.json) with `package.json`.
 
-> /about-us
+## Updating the Theme
 
-### Merge files
+To update the theme, edit [check-update.php](additional-inc/check-update.php) and replace `ADDRESS_FOR_UPDATE` with your server’s address.
 
-- Copy [additional-inc](./additional-inc/) inner files into inc directory and remove additional-inc
-- Replace [additional-.gitignore](additional-.gitignore) with _.gitignore_
-- Copy [additional-functions.php](additional-functions.php) inner codes into _functions.php_
-- Replace [additional-package.json](additional-package.json) with _package.json_
+Change the version number and run the following command to package all files and create a zip archive of your theme:
+
+```shell
+npm run package
+```
+
+Upload the output zip file to your server.
+
+On your server, create an update info file in JSON format like this:
+
+```json
+{
+  "new_version": "2.2.0",
+  "url": "https://ADDRESS_FOR_UPDATE/info.html",
+  "package": "https://ADDRESS_FOR_UPDATE/THEME_NAME.zip"
+}
+```

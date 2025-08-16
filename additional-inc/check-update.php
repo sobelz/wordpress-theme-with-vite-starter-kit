@@ -25,11 +25,5 @@ function my_theme_check_for_update($transient) {
 
     return $transient;
 }
-// * Update JSON sample 
-// {
-//   "new_version": "2.2.0",
-//   "url": "https://ADDRESS_FOR_UPDATE/info.html",
-//   "package": "https://ADDRESS_FOR_UPDATE/THEME_NAME.zip"
-// }
 
 ?>
