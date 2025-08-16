@@ -36,7 +36,7 @@ const makePackage = async () => {
 
     const zip = new AdmZip();
 
-    zip.addLocalFolder(process.cwd(), "output");
+    zip.addLocalFolder(join(process.cwd(), "output"));
     zip.writeZip(outputPathZip);
 };
 
