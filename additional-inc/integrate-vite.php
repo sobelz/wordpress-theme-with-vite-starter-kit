@@ -15,6 +15,9 @@ function get_assets_files_array (){
 function assets_import_in_page_keys (){
 	$slug = basename(get_permalink());
 	if(is_home()){
+		$slug = "blog";
+	}
+	if(is_front_page()){
 		$slug = "home";
 	}
 	$import_page_items = [$slug,"main"];
